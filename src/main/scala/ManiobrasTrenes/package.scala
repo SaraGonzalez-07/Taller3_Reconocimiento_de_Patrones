@@ -39,8 +39,7 @@ package object ManiobrasTrenes {
         )
 
       // Movimiento Uno(0), no cambia el estado
-      case (estado, Uno(0)) =>
-        estado
+      case (e, Uno(0)) => e
 
       // Dos(n), n > 0, los últimos n de principal pasan al inicio de dos
       case ((principal, uno, dos), Dos(n)) if n > 0 =>
@@ -59,8 +58,7 @@ package object ManiobrasTrenes {
         )
 
       // Movimiento Dos(0), no cambia el estado
-      case (estado, Dos(0)) =>
-        estado
+      case (e, Dos(0)) => e
     }
 
 
