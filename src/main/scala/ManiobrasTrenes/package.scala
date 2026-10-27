@@ -76,6 +76,6 @@ package object ManiobrasTrenes {
   def definirManiobra(t1: Tren, t2: Tren): Maniobra = {
     // Dados dos trenes t1 (el original) y t2 (el deseado), devuelve la maniobra
     // para pasar de (t1, List(), List()) a (t2, List(), List())
-    ???
+   ???
   }
 }
