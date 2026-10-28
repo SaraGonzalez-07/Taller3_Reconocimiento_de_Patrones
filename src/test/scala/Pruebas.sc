@@ -64,4 +64,45 @@ aplicarMovimientos(m5, List(Uno(0), Dos(0))) ==
     (List('a','b'), List('c'), List('d')))
 
 
+
 // definirManiobra
+
+
+// Pruebas sin ==
+// aplicarMovimiento sin ==
+val c11 = (List('a','b','c','d','e'), List('f'), List('g'))
+aplicarMovimiento(c1, Uno(2))
+
+val c22 = (List('a','b'), List('c'), List('d'))
+aplicarMovimiento(c2, Dos(8))
+
+val c33 = (List('a'), List('b','c','d'), List('f'))
+aplicarMovimiento(c3, Uno(-2))
+
+val c44 = (List('a'), List('b'), List('c'))
+aplicarMovimiento(c4, Uno(-5))
+
+val c55 = (List('a','b','c','d'), List('e'), List('f'))
+aplicarMovimiento(c5, Dos(2))
+aplicarMovimiento(c5, Dos(-5))
+
+val c66 = (List('a','b'), List('c'), List('d'))
+aplicarMovimiento(c6, Uno(0))
+aplicarMovimiento(c6, Dos(0))
+
+// aplicarMovimientos sin ==
+val m11 = (List('a','b','c','d'), List('e'), Nil)
+aplicarMovimientos(m1, List(Uno(1), Uno(2)))
+
+val m22 = (List('a','b'), List('c'), List('d'))
+aplicarMovimientos(m2, List(Uno(8), Dos(1)))
+
+val m33 = (List('a'), List('b','c','d'), List('e','f'))
+aplicarMovimientos(m3, List(Uno(-2), Dos(-1)))
+
+val m44 = (List('a','b','c'), List('d'), List('e'))
+aplicarMovimientos(m4, List(Dos(2), Dos(-2)))
+
+val m55 = (List('a','b'), List('c'), List('d'))
+aplicarMovimientos(m5, List(Uno(0), Dos(0)))
+
