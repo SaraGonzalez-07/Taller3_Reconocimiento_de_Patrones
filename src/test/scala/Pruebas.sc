@@ -6,6 +6,7 @@ val e3 = aplicarMovimiento(e2, Dos(3))
 val e4 = aplicarMovimiento(e3, Dos(-1))
 val e5 = aplicarMovimiento(e4, Uno(-2))
 
+/*
 val e = (List('a', 'b'), List('c'), List('d'))
 aplicarMovimientos(e, List(Uno(1), Dos(1), Uno(-2)))
 
@@ -64,10 +65,6 @@ aplicarMovimientos(m5, List(Uno(0), Dos(0))) ==
     (List('a','b'), List('c'), List('d')))
 
 
-
-// definirManiobra
-
-
 // Pruebas sin ==
 // aplicarMovimiento sin ==
 val c11 = (List('a','b','c','d','e'), List('f'), List('g'))
@@ -105,4 +102,9 @@ aplicarMovimientos(m4, List(Dos(2), Dos(-2)))
 
 val m55 = (List('a','b'), List('c'), List('d'))
 aplicarMovimientos(m5, List(Uno(0), Dos(0)))
+*/
+
+
+// definirManiobra
+definirManiobra (List('a','b','c','d'),List('d','b','c','a'))
 

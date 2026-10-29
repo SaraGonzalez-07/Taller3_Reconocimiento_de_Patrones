@@ -13,7 +13,9 @@ package object ManiobrasTrenes {
   type Estado = (Tren, Tren, Tren)
 
   trait Movimiento
+
   case class Uno(n: Int) extends Movimiento
+
   case class Dos(n: Int) extends Movimiento
 
   type Maniobra = List[Movimiento]
@@ -73,7 +75,55 @@ package object ManiobrasTrenes {
 
   def definirManiobra(t1: Tren, t2: Tren): Maniobra = {
     // Dados dos trenes t1 (el original) y t2 (el deseado), devuelve la maniobra
-    // para pasar de (t1, List(), List()) a (t2, List(), List())
-   ???
+    // para pasar de (t1, List(), List()) a (t2, List(), List()) }
+    var e: Estado = (t1, List(), List())
+    var mn: Maniobra = List()
+    val t2Invertido = t2.reverse
+
+    for (i <- 0 until t2Invertido.length) {
+      val vagonBusca =t2Invertido(i)
+
+      val posUno =e._2.indexOf(vagonBusca)
+      if(posUno != -1){
+        val movUno = Uno (-(posUno + 1))
+        e = aplicarMovimiento(e, movUno)
+        mn = mn :+ movUno
+      }
+
+      val principal =e._1
+      val posicion = principal.indexOf(vagonBusca)
+
+      posicion match {
+        case -1 => ()
+
+        case p =>
+
+          val Princ= principal.length - 1 - p
+
+          val mov: Maniobra = List(
+            Uno(Princ),
+            Dos(1),
+            Uno(-Princ )
+          ).filter {
+            case Uno(n) => n != 0
+            case Dos(n) => n != 0
+            case _  => true
+          }
+          for (j <- 0 until mov.length) {
+            val mo = mov(j)
+            e = aplicarMovimiento(e, mo)
+            mn = mn :+ mo
+          }
+          }
+      }
+      val vagonDos = e._3.length
+      if(vagonDos > 0){
+        val moFinDos = Dos(-vagonDos)
+        e = aplicarMovimiento(e, moFinDos)
+        mn = mn :+ moFinDos
+      }
+      mn
+    }
+
+
   }
-}
