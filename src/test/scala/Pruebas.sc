@@ -39,7 +39,7 @@ definirManiobra(List('s','t','a','a','l'), List('s','a','l','t','a'))
 definirManiobra(List('o','s','a','c'), List('s','a','c','o'))
 definirManiobra(List('p','a','z','o','l'), List('p','l','a','z','o'))
 definirManiobra(List('s','a','a','r'), List('s','a','r','a'))
-definirManiobra(List(' ','c','i','a','s','m','a','s','o','a','r'), List('c', 'a', 'm', 'i', 's', 'a', ' ', 'r', 'o', 's', 'a'))
+definirManiobra(List(' ', 'a', ' ', 'l', 'h', 'o'), List(' ','h', 'o', ' ', 'l', 'a'))
 
 // aplicarMovimientos
 val m1 = (List('a','b','c','d'), List('e'), Nil)
