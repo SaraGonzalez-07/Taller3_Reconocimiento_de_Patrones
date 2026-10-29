@@ -76,54 +76,54 @@ package object ManiobrasTrenes {
   def definirManiobra(t1: Tren, t2: Tren): Maniobra = {
     // Dados dos trenes t1 (el original) y t2 (el deseado), devuelve la maniobra
     // para pasar de (t1, List(), List()) a (t2, List(), List()) }
-    var e: Estado = (t1, List(), List())
-    var mn: Maniobra = List()
-    val t2Invertido = t2.reverse
+    val n = t1.length
 
-    for (i <- 0 until t2Invertido.length) {
-      val vagonBusca =t2Invertido(i)
+    val primeraManiobra: Maniobra = n match {
+      case 0 => Nil
 
-      val posUno =e._2.indexOf(vagonBusca)
-      if(posUno != -1){
-        val movUno = Uno (-(posUno + 1))
-        e = aplicarMovimiento(e, movUno)
-        mn = mn :+ movUno
-      }
-
-      val principal =e._1
-      val posicion = principal.indexOf(vagonBusca)
-
-      posicion match {
-        case -1 => ()
-
-        case p =>
-
-          val Princ= principal.length - 1 - p
-
-          val mov: Maniobra = List(
-            Uno(Princ),
-            Dos(1),
-            Uno(-Princ )
-          ).filter {
-            case Uno(n) => n != 0
-            case Dos(n) => n != 0
-            case _  => true
-          }
-          for (j <- 0 until mov.length) {
-            val mo = mov(j)
-            e = aplicarMovimiento(e, mo)
-            mn = mn :+ mo
-          }
-          }
-      }
-      val vagonDos = e._3.length
-      if(vagonDos > 0){
-        val moFinDos = Dos(-vagonDos)
-        e = aplicarMovimiento(e, moFinDos)
-        mn = mn :+ moFinDos
-      }
-      mn
+      case _ => List(Uno(n), Uno(-(n - 1)), Dos(n - 1))
     }
 
+    val estadoInicial = primeraManiobra.foldLeft((t1, List(), List()))(aplicarMovimiento)
 
+    def solucion(e: Estado, obj: Tren, mn: Maniobra): Maniobra = obj match {
+      case Nil =>
+
+        val mnDos = (0 until e._3.length).foldLeft((e, mn)) {
+          case ((est, a), _) =>
+            val m = Dos(-1)
+            (aplicarMovimiento(est, m), a :+ m)
+        }
+        val mnUno = e._2.length match {
+          case 0 => mnDos._2
+          case len => mnDos._2 :+ Uno(-len)
+        }
+        mnUno
+      case vagonBus :: vagonR =>
+        (e._2.contains(vagonBus), e._3.contains(vagonBus)) match {
+          case (true, _) =>
+            val m = Uno(-1)
+            val nuevoEst = aplicarMovimiento(e, m)
+            solucion(nuevoEst, vagonR, mn :+ m)
+
+          case (_, true) =>
+            val casoConflicto = e._1.nonEmpty && e._1 != t2.take(e._1.length)
+            val (ePrevio, mnPrevio) = casoConflicto match {
+              case true =>
+                val mU = Uno(1)
+                (aplicarMovimiento(e, mU), mn :+ mU)
+              case false =>
+                (e, mn)
+            }
+            val mD = Dos(-1)
+            val nuevoEst = aplicarMovimiento(ePrevio, mD)
+            solucion(nuevoEst, vagonR, mnPrevio :+ mD)
+
+          case _ =>
+            solucion(e, vagonR, mn)
+        }
+    }
+    solucion(estadoInicial, t2, primeraManiobra)
   }
+}
+
